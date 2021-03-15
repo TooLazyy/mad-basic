@@ -45,6 +45,7 @@ dependencies {
     api "androidx.appcompat:appcompat:$xVersion"
     api "androidx.fragment:fragment-ktx:$xFragment"
     api "com.google.android.material:material:$xMaterial"
+    api "androidx.core:core-ktx:$kotlixExtVersion"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
