@@ -2,12 +2,15 @@ package ru.wearemad.mad_base.message
 
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import ru.wearemad.mad_base.activity.CurrentActivityHolder
+import ru.wearemad.mad_base.message.factory.SnackbarFactory
+import ru.wearemad.mad_base.message.factory.ToastFactory
 
 class DefaultMessageController(
-    private val activityHolder: CurrentActivityHolder
+    private val activityHolder: CurrentActivityHolder,
+    private val snackbarFactory: SnackbarFactory,
+    private val toastFactory: ToastFactory
 ) : MessageController {
 
     private var toast: Toast? = null
@@ -15,18 +18,15 @@ class DefaultMessageController(
 
     override fun showToast(text: String, duration: Int) {
         cancelToast()
-        activityHolder.currentActivity?.let {
-            toast = Toast.makeText(it, text, duration)
-            toast?.show()
-        }
+        toast = toastFactory.createToast(text, duration)
+        toast?.show()
     }
 
     override fun showToast(textResId: Int, duration: Int) {
-        cancelToast()
-        activityHolder.currentActivity?.let {
-            toast = Toast.makeText(it, it.getString(textResId), duration)
-            toast?.show()
-        }
+        showToast(
+            activityHolder.currentActivity?.resources?.getString(textResId) ?: "",
+            duration
+        )
     }
 
     override fun showSnack(
@@ -38,20 +38,15 @@ class DefaultMessageController(
         listener: (view: View) -> Unit
     ) {
         cancelSnack()
-        val rootView =
-            activityHolder.currentActivity?.findViewById<View>(android.R.id.content) ?: return
-        snackbar = Snackbar.make(rootView, message, duration).apply {
-            if (backgroundColor != null) {
-                view.setBackgroundColor(ContextCompat.getColor(view.context, backgroundColor))
-            }
-            if (actionStringId != null) {
-                setAction(actionStringId) { view -> listener.invoke(view) }
-            }
-            if (buttonColor != null) {
-                setActionTextColor(ContextCompat.getColor(view.context, buttonColor))
-            }
-            show()
-        }
+        snackbar = snackbarFactory.createSnackbar(
+            message,
+            backgroundColor,
+            actionStringId,
+            buttonColor,
+            duration,
+            listener
+        )
+        snackbar?.show()
     }
 
     override fun showSnack(
