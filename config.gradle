@@ -9,7 +9,7 @@ ext {
 
     //version
     vCode = 3
-    vName = "1.0.2"
+    vName = "1.0.3"
 
     //gradle
     gradleVersion = '4.1.2'
