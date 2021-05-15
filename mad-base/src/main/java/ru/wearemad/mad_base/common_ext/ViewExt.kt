@@ -4,9 +4,15 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Outline
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
+import androidx.annotation.Px
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -52,6 +58,30 @@ fun View.setRoundedBgWithColor(
     ).apply {
         fillColor = ColorStateList.valueOf(resColor(color))
     }
+}
+
+fun View.updateMargins(
+    @Px top: Int = marginTop,
+    @Px bottom: Int = marginBottom,
+    @Px left: Int = marginLeft,
+    @Px right: Int = marginRight
+) {
+    layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
+        setMargins(
+            left, top, right, bottom
+        )
+    }
+}
+
+fun View.updateAllMargins(
+    @Px margin: Int
+) {
+    updateMargins(
+        top = margin,
+        bottom = margin,
+        left = margin,
+        right = margin,
+    )
 }
 
 fun View.hideKeyboard() {

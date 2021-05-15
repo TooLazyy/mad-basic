@@ -1,5 +1,22 @@
 package ru.wearemad.mad_base.collection
 
+@JvmName("copyImmutableListAndReplaceItem")
+fun <T> List<T>.copyListAndReplaceItem(
+    predicate: (T) -> Boolean,
+    duplicator: (T) -> T,
+    action: (T) -> Unit = {}
+): List<T> {
+    val newList = this.toMutableList()
+    val itemPosition = newList.indexOfFirst(predicate)
+    if (itemPosition != -1) {
+        val copiedItem = duplicator(newList[itemPosition])
+        action(copiedItem)
+        newList.removeAt(itemPosition)
+        newList.add(itemPosition, copiedItem)
+    }
+    return newList
+}
+
 fun <T> MutableList<T>.copyListAndReplaceItem(
     predicate: (T) -> Boolean,
     duplicator: (T) -> T,
