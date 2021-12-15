@@ -40,7 +40,7 @@ fun <T : Any?> Flow<T>.chunkedWithThrottle(chunkSize: Int, throttleTimeMs: Long)
         launch {
             val upstream = this@chunkedWithThrottle.produceIn(this@coroutineScope)
             while (isActive) {
-                val item = upstream.receiveOrNull() ?: break
+                val item = upstream.receiveCatching().getOrNull() ?: break
                 bufferMutex.withLock {
                     if (buffer.size + 1 == chunkSize) {
                         buffer.add(item)

@@ -2,27 +2,26 @@ ext {
 
     applicationName = "Base"
     appId = "ru.wearemad.basic"
-    compileSdk = 30
+    compileSdk = 31
     minSdk = 21
-    targetSdk = 30
-    buildTools = "30.0.2"
+    targetSdk = 31
 
     //version
-    vCode = 4
-    vName = "1.0.4"
+    vCode = 5
+    vName = "1.0.5"
 
     //gradle
-    gradleVersion = '4.1.2'
+    gradleVersion = '7.0.4'
 
     //kotlin
-    kotlinVersion = '1.4.31'
+    kotlinVersion = '1.5.31'
     kotlinCoroutinesVersion = '1.3.9'
-    kotlixExtVersion = '1.3.2'
-    kotlinCoroutinesAndroidVersion = '1.4.3'
+    kotlixExtVersion = '1.7.0'
+    kotlinCoroutinesAndroidVersion = '1.5.2'
 
     //android x
-    xVersion = '1.2.0'
-    xMaterial = '1.3.0'
-    xExif = '1.3.2'
-    xFragment = '1.3.3'
+    xVersion = '1.4.0'
+    xMaterial = '1.4.0'
+    xExif = '1.3.3'
+    xFragment = '1.4.0'
 }

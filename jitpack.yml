@@ -1,0 +1,4 @@
+jdk:
+ - openjdk11
+install:
+ - ./gradlew :mad-base:build :mad-base:publishToMavenLocal
