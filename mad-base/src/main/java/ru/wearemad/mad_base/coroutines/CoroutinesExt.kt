@@ -8,7 +8,7 @@ import kotlin.coroutines.suspendCoroutine
 inline fun <T : Any?> wrapResult(block: () -> T): RequestResult<T> {
     return try {
         RequestResult.Success(block())
-    } catch (ex: Exception) {
+    } catch (ex: Throwable) {
         RequestResult.Error(ex)
     }
 }
@@ -18,7 +18,7 @@ suspend inline fun <T : Any?> wrapContinuationResult(
 ): RequestResult<T> = suspendCoroutine { cont ->
     try {
         cont.block()
-    } catch (ex: Exception) {
+    } catch (ex: Throwable) {
         cont.resume(RequestResult.Error(ex))
     }
 }
@@ -50,15 +50,13 @@ fun <T : Any?> RequestResult<T>.resultOrDefault(default: T): T =
 suspend fun <T : Any?> SendChannel<T>.trySend(message: T) {
     try {
         send(message)
-    } catch (ex: Exception) {
-        ex.printStackTrace()
+    } catch (_: Throwable) {
     }
 }
 
 fun <T : Any?> SendChannel<T>.tryOffer(message: T) {
     try {
-        offer(message)
-    } catch (ex: Exception) {
-        ex.printStackTrace()
+        trySend(message)
+    } catch (_: Throwable) {
     }
 }

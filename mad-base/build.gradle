@@ -42,10 +42,10 @@ dependencies {
 
     implementation "androidx.exifinterface:exifinterface:$xExif"
 
-    api "androidx.appcompat:appcompat:$xVersion"
-    api "androidx.fragment:fragment-ktx:$xFragment"
-    api "com.google.android.material:material:$xMaterial"
-    api "androidx.core:core-ktx:$kotlixExtVersion"
+    implementation "androidx.appcompat:appcompat:$xVersion"
+    implementation "androidx.fragment:fragment-ktx:$xFragment"
+    implementation "com.google.android.material:material:$xMaterial"
+    implementation "androidx.core:core-ktx:$kotlixExtVersion"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
